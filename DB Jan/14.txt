@@ -1,0 +1,98 @@
+CREATE DATABASE CarRental
+
+use CarRental
+
+CREATE TABLE Categories /*(Id, Category, DailyRate, WeeklyRate, MonthlyRate, WeekendRate)*/
+(Id int identity primary key,
+Category varchar(50),
+DailyRate money,
+WeeklyRate money,
+MonthlyRate money,
+WeekendRate money)
+
+INSERT INTO Categories(Category)
+VALUES ('Limosina')
+insert into Categories(Category)
+Values 
+('City car')
+Insert into Categories(Category)
+Values ('Family car')
+
+
+
+CREATE TABLE Cars /*(Id, PlateNumber, Make, Model, CarYear, CategoryId, Doors, Picture, Condition, Available)*/
+(Id int identity primary key,
+PlateNumber int,
+Make nvarchar(50),
+Model varchar(50),
+CarYear DATE,
+CategoryId int,
+foreign key (CategoryId) references Categories(Id),
+Doors int,
+Picture varbinary(max),
+Condition varchar(50),
+Available BIT NOT NULL DEFAULT 0)
+
+
+
+
+Insert into Cars (PlateNumber, Make, Model, CarYear, CategoryId, Doors, Condition, Available)
+Values(1,'Opel','Astra','01-01-1986',1,4,'good','true'),
+(2,'Mercedes','CLS','01-01-1999',2,3,'good','true'),
+(3,'BMW','E36','01-01-1995',3,4,'good','true');
+
+Create table Employees /*(Id, FirstName, LastName, Title, Notes)*/
+(Id int identity primary key,
+FirstName nvarchar(50),
+LastName nvarchar(50),
+Title varchar(50),
+Notes varchar(50))
+
+Insert Into Employees(FirstName, LastName, Title, Notes)
+Values('Ivan','Petrov','Engineer','NotesForIvan'),
+('Gosho','Todorov','TP','NotesForGosho'),
+('Martin','Vitov','TP','NotesForMartin')
+
+Create table Customers /*(Id, DriverLicenceNumber, FullName, Address, City, ZIPCode, Notes)*/
+(Id int identity primary key,
+DriverLicenceNumber int,
+FullName nvarchar(50),
+Address varchar(100),
+City varchar (50),
+ZIPCode int,
+Notes varchar(50))
+
+Insert into Customers(DriverLicenceNumber, FullName, Address, City, ZIPCode, Notes)
+Values(12345,'Peter Todorov','BG','Sofia',1327,'NotesForPeterTodorov'),
+(62345,'Ivan Todorov','BG','Sofia',1359,'NotesForIvanTodorov'),
+(74328525,'Kaloqn Todorov','BG','Sofia',1365,'NotesForKaloqnTodorov')
+
+
+Create table RentalOrders /*(Id, EmployeeId, CustomerId, CarId, CarCondition, TankLevel, KilometrageStart,
+KilometrageEnd, TotalKilometrage, StartDate, EndDate, TotalDays, RateApplied, TaxRate, OrderStatus, Notes)*/
+(Id int identity primary key,
+EmployeeId int,
+foreign key (EmployeeId) references Employees(Id),
+CustomerId int,
+foreign key (CustomerId) references Customers(Id),
+CarId int
+foreign key (CarId) references Cars(Id),
+CarCondition varchar(50),
+TankLevel float(2),
+KilometrageStart float(2),
+KilometrageEnd float(2),
+TotalKilometrage float(2),
+StartDate Date,
+EndDate Date,
+TotalDays int,
+RateApplied int,
+TaxRate money,
+OrderStatus BIT NOT NULL DEFAULT 0,
+Notes varchar(50))
+
+
+insert into RentalOrders(EmployeeId, CustomerId, CarId, CarCondition, TankLevel, KilometrageStart,
+KilometrageEnd, TotalKilometrage, StartDate, EndDate, TotalDays, RateApplied, TaxRate, OrderStatus, Notes)
+Values(1,1,1,'good',2,20,30,20,'10-10-2013','06-06-2014',123,3,45,'true','blablabla'),
+(2,2,2,'good',2,20,30,20,'10-10-2013','06-06-2014',123,3,45,'true','blablablablablabla'),
+(3,3,3,'good',2,20,30,20,'10-10-2013','06-06-2014',123,3,45,'true','b')

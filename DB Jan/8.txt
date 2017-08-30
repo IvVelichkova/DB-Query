@@ -1,0 +1,23 @@
+CREATE TABLE Users
+(Id bigint unique identity,
+Username varchar(30) unique NOT NULL,
+Password varchar(26) NOT NULL,
+ProfilePicture varbinary(max),
+LastLoginTime TIME,
+IsDeleted bit)
+
+ALTER TABLE Users
+ADD Yes_No Bit
+
+AlTER table Users
+Drop column Yes_No
+
+ALTER TABLE Users
+ADD CONSTRAINT PK_Key Primary key(Id)
+
+INSERT INTO Users(Username,Password,LastLoginTime,IsDeleted)
+VALUES('Ivan','123456789012345','13:15:42','true'),
+('Gosho','1234567890','15:15:42','false'),
+('Martyn','123456789012','22:15:42','true'),
+('Iliqn','1234567','21:15:42','false'),
+('Mariq','12345678','17:15:42','true');
